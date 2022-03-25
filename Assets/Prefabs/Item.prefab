@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4840006844434759847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1262723393
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946bc806ff19e8b488c2a29fdcbe018d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blue: {r: 0, g: 0.034409046, b: 1, a: 0}
-  red: {r: 0.6415094, g: 0.08170167, b: 0.11056986, a: 0}
-  green: {r: 0.012586245, g: 0.6981132, b: 0.0032929946, a: 0}
-  yellow: {r: 1, g: 0.99501103, b: 0, a: 0}
-  orange: {r: 1, g: 0.5307528, b: 0, a: 0}
+  blue: {r: 0, g: 0.034409046, b: 1, a: 1}
+  red: {r: 0.6415094, g: 0.08170167, b: 0.11056986, a: 1}
+  green: {r: 0.012586245, g: 0.6981132, b: 0.0032929946, a: 1}
+  yellow: {r: 1, g: 0.99501103, b: 0, a: 1}
+  orange: {r: 1, g: 0.5307528, b: 0, a: 1}

@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 895188857}
   startPosition: {fileID: 2098390402}
-  emptyTilePrefab: {fileID: 5904675290178090461, guid: 4a0b7daa7d0668844bc488d9a2da87d8, type: 3}
+  emptyTilePrefab: {fileID: 335861082487113989, guid: 4a0b7daa7d0668844bc488d9a2da87d8, type: 3}
 --- !u!114 &895188857
 MonoBehaviour:
   m_ObjectHideFlags: 0

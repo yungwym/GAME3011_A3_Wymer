@@ -37,47 +37,51 @@ public class Item : MonoBehaviour
                
     }
 
-    public void SetTile(int itemInt)
+    public void SetTile(ItemType itemType)
     {
-
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        switch (itemInt)
+        switch (itemType)
         {
-            case 1:
+            case ItemType.BLUE:
                 Debug.Log("Blue");
                 itemType = ItemType.BLUE;
-                spriteRenderer.color = Color.blue;
+                spriteRenderer.color = blue;
                 break;
 
-            case 2:
+            case ItemType.RED:
                 Debug.Log("Red");
                 itemType = ItemType.RED;
-                spriteRenderer.color = Color.red;
+                spriteRenderer.color = red;
                 break;
 
-            case 3:
+            case ItemType.GREEN:
                 Debug.Log("Green");
                 itemType = ItemType.GREEN;
-                spriteRenderer.color = Color.green;
+                spriteRenderer.color = green;
                 break;
 
-            case 4:
+            case ItemType.YELLOW:
                 Debug.Log("Yellow");
                 itemType = ItemType.YELLOW;
-                spriteRenderer.color = Color.yellow;
+                spriteRenderer.color = yellow;
                 break;
 
-            case 5:
+            case ItemType.ORANGE:
                 Debug.Log("Orange");
                 itemType = ItemType.ORANGE;
                 spriteRenderer.color = orange;
                 break;
 
             default:
+                Debug.Log("Default");
                 break;
         }
+    }
 
+    public ItemType GetItemType()
+    {
+        return itemType;
     }
 
 }
