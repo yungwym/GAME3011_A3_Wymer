@@ -16,7 +16,7 @@ public enum ItemType
 public class Item : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    private ItemType itemType;
+    private ItemType currentItemType;
 
     public Color blue;
     public Color red;
@@ -45,31 +45,31 @@ public class Item : MonoBehaviour
         {
             case ItemType.BLUE:
                 Debug.Log("Blue");
-                itemType = ItemType.BLUE;
+                currentItemType = ItemType.BLUE;
                 spriteRenderer.color = blue;
                 break;
 
             case ItemType.RED:
                 Debug.Log("Red");
-                itemType = ItemType.RED;
+                currentItemType = ItemType.RED;
                 spriteRenderer.color = red;
                 break;
 
             case ItemType.GREEN:
                 Debug.Log("Green");
-                itemType = ItemType.GREEN;
+                currentItemType = ItemType.GREEN;
                 spriteRenderer.color = green;
                 break;
 
             case ItemType.YELLOW:
                 Debug.Log("Yellow");
-                itemType = ItemType.YELLOW;
+                currentItemType = ItemType.YELLOW;
                 spriteRenderer.color = yellow;
                 break;
 
             case ItemType.ORANGE:
                 Debug.Log("Orange");
-                itemType = ItemType.ORANGE;
+                currentItemType = ItemType.ORANGE;
                 spriteRenderer.color = orange;
                 break;
 
@@ -81,7 +81,7 @@ public class Item : MonoBehaviour
 
     public ItemType GetItemType()
     {
-        return itemType;
+        return currentItemType;
     }
 
 }

@@ -5,11 +5,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public GameObject itemPrefab;
-
     public BoxCollider2D boxCollider2D;
-
     private TileManager tileManager;
-
     public Transform centerPosition;
 
     //Tile Info
@@ -23,11 +20,18 @@ public class Tile : MonoBehaviour
     public Tile leftNeighbour;
 
     //Initial Item
-    private Item initialItem;
+    private GameObject currentItem;
+    private ItemType currentItemType;
 
     public List<Tile> neighbourTiles;
-
     public List<ItemType> validItemTypes;
+
+    public List<Tile> sameTypeNeighbours;
+
+    public List<Tile> matches;
+    public List<Tile> verticalMatches;
+
+    public int numOfMatches = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +54,11 @@ public class Tile : MonoBehaviour
 
             if (boxCollider2D.bounds.Contains(mousePos))
             {
-               if (tileManager.b_TileOneSelected != true)
-               {
+                if (tileManager.b_TileOneSelected != true)
+                {
                     tileManager.SelectTileOne(GetRow(), GetColumn());
-               }
-               else if (tileManager.b_TileOneSelected == true)
+                }
+                else if (tileManager.b_TileOneSelected == true)
                 {
                     tileManager.SelectTileTwo(GetRow(), GetColumn());
                 }
@@ -80,48 +84,77 @@ public class Tile : MonoBehaviour
     {
         SetupValidItemTypes();
 
+        currentItem = Instantiate(itemPrefab, centerPosition.position, Quaternion.identity);
+
+        currentItem.transform.SetParent(transform);
+
+        int randomItemInt = Random.Range(0, validItemTypes.Count);
+        ItemType randomItemType = validItemTypes[randomItemInt];
+
+        currentItem.GetComponent<Item>().SetTile(randomItemType);
+
+        currentItemType = currentItem.GetComponent<Item>().GetItemType();
+    }
+
+    public void CheckNeighbouringTilesForMatches()
+    {
+        //Debug.Log(currentItemType);
+
         foreach (Tile tile in neighbourTiles)
         {
-            Debug.Log("Tile");
+            if (tile != null)
+            {
+                ItemType tempItemType = tile.GetCurrentItemType();
 
+                if (tempItemType == currentItemType)
+                {
 
-            //if (tile != null)
-            //{
-              //  Item tempItem = tile.GetInitialItem();
+                    matches.Add(tile);
+                    
+                    Debug.Log(tempItemType);
+                    Debug.Log("Match");
 
-                //Debug.Log(tempItem.GetItemType());
-
-                //validItemTypes.Remove(tempItem.GetItemType());
-            //}
+                    numOfMatches += 1;
+                }
+            }
         }
 
-        GameObject startItem = Instantiate(itemPrefab, centerPosition.position, Quaternion.identity);
+        foreach (Tile tile in matches)
+        {
+            ItemType tempItemType = tile.GetCurrentItemType();
 
-        Debug.Log(validItemTypes.Count);
+            if (tempItemType == currentItemType)
+            {
 
-        int randomItemInt = Random.Range(0, validItemTypes.Count);
-        ItemType randomItemType = validItemTypes[randomItemInt];
-
-        startItem.GetComponent<Item>().SetTile(randomItemType);
+            }
+        }
     }
 
-    public void RandomizeInitialTile()
+
+    //Getters and Setters
+
+    public List<Tile> GetNeighbouringTiles()
     {
-        SetupValidItemTypes();
-
-        GameObject startItem = Instantiate(itemPrefab, centerPosition.position, Quaternion.identity);
-
-        Debug.Log(validItemTypes.Count);
-
-        int randomItemInt = Random.Range(0, validItemTypes.Count);
-        ItemType randomItemType = validItemTypes[randomItemInt];
-
-        startItem.GetComponent<Item>().SetTile(randomItemType);
+        return neighbourTiles;
     }
 
-    public Item GetInitialItem()
+    public GameObject GetCurrentItem()
     {
-        return initialItem;
+        return currentItem;
+    }
+
+    public ItemType GetCurrentItemType()
+    {
+        return currentItemType;
+    }
+
+    public void SetCurrentItem(GameObject item)
+    {
+        currentItem = item;
+        currentItem.transform.SetParent(transform);
+        currentItem.transform.position = centerPosition.transform.position;
+
+        currentItemType = currentItem.GetComponent<Item>().GetItemType();
     }
 
     public void SetRowAndColumn(int row, int column)
@@ -139,4 +172,39 @@ public class Tile : MonoBehaviour
     {
         return ColumnNum;
     }
+
 }
+
+    //Old Unused Code 
+
+    /*
+  public void RandomizeInitialTile()
+  {
+      SetupValidItemTypes();
+
+     /*
+        foreach (Tile tile in neighbourTiles)
+        {
+         
+            //if (tile != null)
+            //{
+              //  Item tempItem = tile.GetInitialItem();
+
+                //Debug.Log(tempItem.GetItemType());
+
+                //validItemTypes.Remove(tempItem.GetItemType());
+            //}
+        }
+        
+
+    GameObject startItem = Instantiate(itemPrefab, centerPosition.position, Quaternion.identity);
+
+      Debug.Log(validItemTypes.Count);
+
+      int randomItemInt = Random.Range(0, validItemTypes.Count);
+      ItemType randomItemType = validItemTypes[randomItemInt];
+
+      startItem.GetComponent<Item>().SetTile(randomItemType);
+  }
+  */
+

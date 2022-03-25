@@ -20,8 +20,12 @@ public class TileManager : MonoBehaviour
     private int GridRowSize;
     private int GridColumnSize;
 
+    //Swapping Variables 
+
     private Tile selectedTileOne;
     private Tile selectedTileTwo;
+
+    private List<Tile> validTilesToSwap;
 
     public bool b_TileOneSelected;
     public bool b_TileTwoSelected;
@@ -44,7 +48,11 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     if (b_TileOneSelected && b_TileTwoSelected)
+        {
+            Debug.Log("Swap");
+            SwapTile(selectedTileOne, selectedTileTwo);
+        }
     }
 
     public void GenerateEmptyGrid(int rows, int columns)
@@ -149,20 +157,46 @@ public class TileManager : MonoBehaviour
     {
         Debug.Log("Tile One Selected at: Row: " + row + " Column: " + column);
         b_TileOneSelected = true;
+
         selectedTileOne = grid[row, column];
+
+        validTilesToSwap = selectedTileOne.GetNeighbouringTiles();
     }
 
     public void SelectTileTwo(int row, int column)
     {
         Debug.Log("Tile Two Selected at: Row: " + row + " Column: " + column);
-        b_TileTwoSelected = true;
-        selectedTileTwo = grid[row, column];
-    }
-
-    private void SwapTile()
-    {
         
+        selectedTileTwo = grid[row, column];
+
+        if (validTilesToSwap.Contains(selectedTileTwo))
+        {
+            Debug.Log("Valid Tile Two Selection");
+            b_TileTwoSelected = true;
+        }
+        else
+        {
+            Debug.Log("Invalid Tile Two Selection");
+        }
     }
 
+    private void SwapTile(Tile tileOne, Tile tileTwo)
+    {
+        GameObject itemOne = tileOne.GetCurrentItem();
+        GameObject itemTwo = tileTwo.GetCurrentItem();
 
+        tileOne.SetCurrentItem(itemTwo);
+        tileTwo.SetCurrentItem(itemOne);
+
+        selectedTileOne = null;
+        selectedTileTwo = null;
+
+        b_TileOneSelected = false;
+        b_TileTwoSelected = false;
+
+        Debug.Log("Swapped");
+
+        tileOne.CheckNeighbouringTilesForMatches();
+        tileTwo.CheckNeighbouringTilesForMatches();
+    }
 }
